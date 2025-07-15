@@ -9,6 +9,8 @@ import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import Builder from './components/Builder';
 import AddProperty from './components/AddProperty';
+import PropertyList from './components/PropertyList';
+import EditProperty from './components/EditProperty';
 
 
 const App = () => {
@@ -17,7 +19,7 @@ const App = () => {
   useEffect(() => {
     const fetchAdmin = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/admin/me', {
+        const response = await fetch('https://real-esate-backend.vercel.app/api/admin/me', {
           credentials: 'include'
         });
 
@@ -53,8 +55,17 @@ const App = () => {
         <Route path="/dashboard" element={isAuthorized ? <Dashboard /> : <Navigate to="/login" />} />
         <Route path="/builder" element={isAuthorized ? <Builder /> : <Navigate to="/login" />} />
         <Route path="/" element={<Navigate to={isAuthorized ? "/dashboard" : "/login"} />} />
-        <Route path="/add-property" element={isAuthorized ? <AddProperty /> : <Navigate to="/login" />}
-        />
+        <Route path="/add-property" element={isAuthorized ? <AddProperty /> : <Navigate to="/login" />}/>
+        <Route 
+  path="/properties" 
+  element={isAuthorized ? <PropertyList /> : <Navigate to="/login" />} 
+/>
+<Route 
+  path="/edit-property/:id" 
+  element={isAuthorized ? <EditProperty /> : <Navigate to="/login" />} 
+/>
+
+
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>

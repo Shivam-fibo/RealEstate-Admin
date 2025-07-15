@@ -15,7 +15,7 @@ const Builder = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:5000/api/admin/createBuilder', {
+      const response = await fetch('https://real-esate-backend.vercel.app/api/admin/createBuilder', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

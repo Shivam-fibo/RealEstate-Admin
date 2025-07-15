@@ -31,7 +31,7 @@ const AddProperty = () => {
   useEffect(() => {
     const fetchBuilders = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/admin/builders', {
+        const response = await fetch('https://real-esate-backend.vercel.app/api/admin/builders', {
           credentials: 'include'
         });
         
@@ -82,7 +82,7 @@ const AddProperty = () => {
         }
       });
 
-      const response = await fetch('http://localhost:5000/api/admin/property', {
+      const response = await fetch('https://real-esate-backend.vercel.app/api/admin/property', {
         method: 'POST',
         credentials: 'include',
         body: formData
