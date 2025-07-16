@@ -11,31 +11,41 @@ import Builder from './components/Builder';
 import AddProperty from './components/AddProperty';
 import PropertyList from './components/PropertyList';
 import EditProperty from './components/EditProperty';
+import AllSchedules from './components/AllSchedules';
 
 
 const App = () => {
   const { isAuthorized, setIsAuthorized, setAdmin } = useContext(Context);
 
-  useEffect(() => {
-    const fetchAdmin = async () => {
-      try {
-        const response = await fetch('https://real-esate-backend.vercel.app/api/admin/me', {
-          credentials: 'include'
-        });
+  // useEffect(() => {
+  //   const fetchAdmin = async () => {
+  //     try {
+  //       const response = await fetch('https://real-esate-backend.vercel.app/api/admin/me', {
+  //         credentials: 'include'
+  //       });
 
-        if (response.ok) {
-          const data = await response.json();
-          setAdmin(data.data);
-          setIsAuthorized(true);
-        } else {
-          setIsAuthorized(false);
-        }
-      } catch (error) {
-        setIsAuthorized(false);
-      }
-    };
-    fetchAdmin();
-  }, [isAuthorized, setAdmin, setIsAuthorized]);
+  //       if (response.ok) {
+  //         const data = await response.json();
+  //         setAdmin(data.data);
+  //         setIsAuthorized(true);
+  //       } else {
+  //         setIsAuthorized(false);
+  //       }
+  //     } catch (error) {
+  //       setIsAuthorized(false);
+  //     }
+  //   };
+  //   fetchAdmin();
+  // }, [isAuthorized, setAdmin, setIsAuthorized]);
+
+  useEffect(() => {
+    const storedAdmin = localStorage.getItem("admin");
+    if (storedAdmin) {
+      setAdmin(JSON.parse(storedAdmin));
+      setIsAuthorized(true);
+    }
+  }, [setAdmin, setIsAuthorized]);
+
 
   return (
     <BrowserRouter>
@@ -56,6 +66,7 @@ const App = () => {
         <Route path="/builder" element={isAuthorized ? <Builder /> : <Navigate to="/login" />} />
         <Route path="/" element={<Navigate to={isAuthorized ? "/dashboard" : "/login"} />} />
         <Route path="/add-property" element={isAuthorized ? <AddProperty /> : <Navigate to="/login" />}/>
+        <Route path="/schedule" element={isAuthorized ? <AllSchedules /> : <Navigate to="/login" />}/>
         <Route 
   path="/properties" 
   element={isAuthorized ? <PropertyList /> : <Navigate to="/login" />} 

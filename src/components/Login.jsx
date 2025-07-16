@@ -28,7 +28,8 @@ const Login = () => {
 
       const data = await response.json();
       setAdmin(data.data);
-      setIsAuthorized(true);
+setIsAuthorized(true);
+localStorage.setItem("admin", JSON.stringify(data.data));
       navigate('/dashboard');
     } catch (error) {
       toast.error(error.message);
